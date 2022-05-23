@@ -1,0 +1,104 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SoyAgaci
+{
+    class Program
+    {
+        class Kisi
+        {
+            public string Ad;
+            public bool Cinsiyet;
+            public string Es;
+        }
+        static ArrayList Kusaklar = new ArrayList();
+        static List<Kisi> KisiListesi = new List<Kisi>();
+        static int cocukSayisi = 3, evlicift = 1;
+        static bool cinsiyet = false;
+        static int kusak = 1;
+
+        static void Olusum(int baslangicKisiSayisi)
+        {
+            for (int i = 0; i < baslangicKisiSayisi; i++)
+            {
+                Kisi kisi = new Kisi();
+                kisi.Ad = kusak.ToString() + "." + (i += 1).ToString(); i--;
+                kisi.Cinsiyet = cinsiyet;
+                KisiListesi.Add(kisi);
+                if (cinsiyet)
+                    cinsiyet = false;
+                else
+                    cinsiyet = true;
+            }
+            Kusaklar.Add(KisiListesi);
+        }
+        static void Yazdirma()
+        {
+            string Kisiler = "";
+            foreach (var Kisi in KisiListesi)
+            {
+                Kisiler += Kisi.Ad + "(" + Kisi.Cinsiyet + ")" + "<" + Kisi.Es + ">" + "    ";
+            }
+            Console.WriteLine(Kisiler);
+        }
+        static void Evlilik()
+        {
+            int kisi1 = 0, kisi2 = 1;
+            do
+            {
+                if (KisiListesi[kisi1].Cinsiyet != KisiListesi[kisi2].Cinsiyet && string.IsNullOrEmpty(KisiListesi[kisi1].Es) && string.IsNullOrEmpty(KisiListesi[kisi2].Es))
+                {
+                    KisiListesi[kisi1].Es = KisiListesi[kisi2].Ad;
+                    KisiListesi[kisi2].Es = KisiListesi[kisi1].Ad;
+                }
+                kisi1++; kisi2++;
+            } while (kisi2 < KisiListesi.Count);
+            foreach (var kisi in KisiListesi)
+            {
+                if (!string.IsNullOrEmpty(kisi.Es))
+                {
+                    evlicift++;
+                }
+            }
+            evlicift = evlicift / 2;
+        }
+        static void Ureme()
+        {
+
+            Console.WriteLine("Kusak: " + kusak);
+            Console.WriteLine("Sabit Coçuk Sayisi: " + cocukSayisi);
+            Console.WriteLine("........................");
+            Olusum(evlicift * cocukSayisi);
+            Evlilik();
+            Yazdirma();
+            Console.WriteLine("Evli Çift Sayisi: " + evlicift);
+            kusak++;
+            Console.WriteLine("--------------------------------");
+            KisiListesi.Clear();
+        }
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Ureme();
+            }
+            {
+                /*
+                 * Evli çift ve çocuk sayısına göre kişi oluşturup cinsiyetlreine göre evlendiriyor
+                 * tek koşul cinsiyet 
+                 * başlangıcta evli çift sayısı =1, cocuk sayısı sabit =2
+                 */
+            }
+
+
+
+            //Console.WriteLine("deneme 1");
+            //Console.WriteLine(Console.Read().GetType().ToString());
+            //string a;
+            //Console.Write("Değer Giriniz" + '\n');
+            //a = Console.ReadLine();
+            //Console.WriteLine("Okunan Değer: " + a);
+        }
+    }
+}
